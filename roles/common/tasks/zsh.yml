@@ -1,0 +1,15 @@
+- name: zprezto copy script
+  action: copy src=../files/zprezto_copy.sh dest=/home/${item.user}/.zpcopy.sh mode=0755 owner=${item.user} owner=${item.user}
+  with_items: ${users}
+
+- name: remove old zprez
+  action: shell rm -rf /home/${item.user}/.zprez*
+  with_items: ${users}
+
+- name: install zprezto
+  action: shell executable=/usr/bin/zsh git clone --recursive https://github.com/sorin-ionescu/prezto.git /home/${item.user}/.zprezto
+  with_items: ${users}
+  notify:
+    - copy zprezto
+    - zsh default
+    - zsh config

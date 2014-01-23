@@ -1,0 +1,17 @@
+- name: add nginx ppa (will fail for non-Ubuntu systems)
+  action: apt_repository repo='ppa:nginx/stable' update_cache=yes
+
+- name: install nginx
+  action: apt pkg=nginx state=latest
+  notify:
+    - restart nginx
+
+- name: install nginx extras
+  action: apt pkg=nginx-extras state=latest
+  notify:
+    - restart nginx
+
+- name: install nginx main config
+  action: copy src=../files/nginx.conf dest=/etc/nginx/nginx.conf
+  notify:
+    - restart nginx

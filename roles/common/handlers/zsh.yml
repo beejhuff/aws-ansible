@@ -1,0 +1,11 @@
+- name: copy zprezto
+  action: shell executable=/usr/bin/zsh /home/${item.user}/.zpcopy.sh ${item.user}
+  with_items: ${users}
+
+- name: zsh default
+  action: user name=${item.user} shell=/usr/bin/zsh
+  with_items: ${users}
+
+- name: zsh config
+  action: copy src=../files/zshrc dest=/home/${item.user}/.zshrc
+  with_items: ${users}

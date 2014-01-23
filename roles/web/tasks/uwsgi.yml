@@ -1,0 +1,10 @@
+- name: install uwsgi
+  action: shell pip-3.3 install uwsgi
+
+- name: create log dir
+  action: file path=/var/log/uwsgi state=directory
+
+- name: install supervisord config
+  action: template src=../templates/uwsgi_supervisord.conf dest=/etc/supervisord.d/uwsgi.conf
+  notify:
+    - restart supervisord

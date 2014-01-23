@@ -1,0 +1,5 @@
+- name: restart nginx
+  action: service name=nginx state=restarted
+
+- name: restart supervisord
+  action: service name=supervisord state=restarted

@@ -1,0 +1,10 @@
+- name: restart sshd
+  service: name=ssh state=restarted
+
+- name: sync ntp
+  action: raw service ntp stop && ntpdate 0.north-america.pool.ntp.org
+
+- name: restart ntpd
+  service: name=ntp state=restarted
+
+- include: zsh.yml

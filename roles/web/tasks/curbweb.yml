@@ -1,0 +1,50 @@
+- name: create /opt/share dir
+  action: file path=/opt/share/curbweb owner=pas group=engineering mode=0775 state=directory
+
+- name: curbstatic share dir
+  action: file path=/opt/share/curbstatic owner=gsg  group=gsg mode=0775 state=directory
+  
+
+- name: create /opt/var dir
+  action: file path=/opt/var/curbweb owner=pas  group=engineering mode=0775 state=directory
+
+- name: create /opt/etc dir
+  action: file path=/opt/etc/curbweb owner=pas  group=engineering mode=0775 state=directory
+
+- name: create /opt/bin dir
+  action: file path=/opt/bin owner=pas  group=engineering mode=0775 state=directory
+
+# PYVENV
+- name: check for pyvenv
+  action: stat path=/curbweb
+  register: pyvenvx
+
+- name: install pyvenv
+  action: shell pyvenv-3.3 /curbweb
+  when: (not pyvenvx.stat.exists)
+
+# NGINX configurations for curbweb
+- name: install curb uwsgi nginx config
+  action: template src=../templates/curbweb.conf dest=/etc/nginx/sites-available/curbweb.conf
+  notify:
+    - restart nginx
+
+- name: softlink uwsgi conf
+  action: file src=/etc/nginx/sites-available/curbweb.conf dest=/etc/nginx/sites-enabled/curbweb.conf state=link
+  notify:
+    - restart nginx
+
+- name: install curb static nginx config
+  action: template src=../templates/curbstatic.conf dest=/etc/nginx/sites-available/curbstatic.conf
+  notify:
+    - restart nginx
+
+- name: softlink static conf
+  action: file src=/etc/nginx/sites-available/curbstatic.conf dest=/etc/nginx/sites-enabled/curbstatic.conf state=link
+  notify:
+    - restart nginx
+
+- name: remove default site in nginx
+  action: file path=/etc/nginx/sites-enabled/default state=absent
+  notify:
+    - restart nginx
