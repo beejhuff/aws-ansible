@@ -1,1 +1,6 @@
-server: 54.204.188.14:80
+server: 0.0.0.0:80
+
+configs:
+  - parnell
+  - ixmatus
+  - maverickcto
