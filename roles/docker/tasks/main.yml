@@ -5,5 +5,8 @@
 - name: Add docker repository key
   apt_key: url=https://get.docker.io/gpg state=present
 
+- name: Add docker repository
+  apt_repository: repo="{{ docker_apt }}" state=present
+
 - name: Install docker
   apt: pkg=lxc-docker state=latest update_cache=yes
