@@ -1,2 +1,2 @@
 - name: restart server
-  shell: reboot
+  shell: /sbin/reboot -t now
