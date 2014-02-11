@@ -4,11 +4,11 @@ users:
 groupz:
     - admin
     - sudo
+    - docker
     - engineering
 
 basic_pkgs:
     - inotify-tools
-    - docker
     - htop
     - ntp
     - libxml2
@@ -29,3 +29,4 @@ basic_pkgs:
     - duplicity
     - libssl-dev
     - libncurses5-dev
+    - libpam-google-authenticator

@@ -1,0 +1,7 @@
+docker_deps:
+  - python-software-properties
+  - python-apt
+  - python-pycurl
+  - wget
+
+docker_apt: "deb http://get.docker.io/ubuntu docker main"

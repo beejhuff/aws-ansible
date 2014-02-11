@@ -1,0 +1,13 @@
+- name: check kernel version
+  action: shell uname -r | cut -c1-3
+  register: kernel_version
+
+- name: upgrade kernel image
+  action: apt pkg=linux-image-generic-lts-raring update_cache=yes
+  when: kernel_version.stdout == "3.2"
+
+- name: upgrade headers
+  action: apt pkg=linux-image-generic-lts-raring update_cache=yes
+  when: kernel_version.stdout == "3.2"
+  notify:
+    - restart server
