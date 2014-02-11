@@ -1,6 +1,6 @@
 - name: install docker dependencies
-  apt: pkg={{ item }} state=latest
-  with_items: {{ docker_deps }}
+  apt: pkg="{{ item }}" state=latest
+  with_items: docker_deps
 
 - name: Add docker repository key
   apt_key: url=https://get.docker.io/gpg state=present

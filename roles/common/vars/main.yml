@@ -1,11 +1,11 @@
-users: 
-    - { user: pas, pass: $6$whoosh$k6kXQkIum4HriwVA2R1zIwqj9ZzjONWaWj5ZfjqF/9/ueTm9t0DHHNCuiG5lQzM9UbSFAALnf1DwAIkEve0oB0}
-
 groupz:
-    - admin
     - sudo
     - docker
     - engineering
+
+users: 
+    - { user: pas, pass: $6$whoosh$k6kXQkIum4HriwVA2R1zIwqj9ZzjONWaWj5ZfjqF/9/ueTm9t0DHHNCuiG5lQzM9UbSFAALnf1DwAIkEve0oB0,
+        groups: "{{ groupz|join(',') }}"}
 
 basic_pkgs:
     - inotify-tools
@@ -20,7 +20,13 @@ basic_pkgs:
     - git-core
     - python
     - python-pip
+    - erlang
+    - erlang-dev
+    - erlang-eunit
+    - erlang-reltool
+    - erlang-xmerl
     - python-software-properties
+    - python-apt
     - ruby
     - rubygems
     - make

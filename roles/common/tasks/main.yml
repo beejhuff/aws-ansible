@@ -1,34 +1,34 @@
 - name: install packages
-  action: apt pkg=$item
-  with_items: ${basic_pkgs}
+  apt: pkg="{{ item }}" update_cache=yes
+  with_items: basic_pkgs
 
 - name: update ntp config
-  action: copy src=../files/ntp.conf dest=/etc/ntp.conf
+  copy: src=../files/ntp.conf dest=/etc/ntp.conf
   notify:
     - sync ntp
     - restart ntpd
 
 - name: create var db directory
-  action: file dest=/var/db state=directory
+  file: dest=/var/db state=directory
 
 - name: create groups
-  action: group name=${item} state=present
-  with_items: ${groupz}
+  group: name="{{ item }}" state=present
+  with_items: groupz
 
 - name: create users
-  action: user name=${item.user} groups=engineering,admin,sudo password="${item.pass}"
-  with_items: ${users}
+  user: name="{{ item.user }}" groups="{{ item.groups }}" password="{{ item.pass }}"
+  with_items: users
 
 - name: create admin user ssh dir
-  action: file dest=/home/${item.user}/.ssh state=directory owner=${item.user} owner=${item.user}
-  with_items: ${users}
+  file: dest="/home/{{ item.user }}/.ssh" state=directory owner="{{ item.user }}"
+  with_items: users
 
 - name: add admin user pubkey
-  action: template src=../templates/${item.user}/authorized_keys dest=/home/${item.user}/.ssh owner=${item.user} owner=${item.user}
-  with_items: ${users}
+  template: src="../templates/{{ item.user }}/authorized_keys" dest="/home/{{ item.user }}/.ssh" owner="{{ item.user }}"
+  with_items: users
 
 - name: update sshd configuration
-  action: template src=../templates/sshd_config.j2 dest=/etc/ssh/sshd_config
+  template: src=../templates/sshd_config.j2 dest=/etc/ssh/sshd_config
   notify:
     - restart sshd
 
