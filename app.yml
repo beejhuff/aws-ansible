@@ -1,3 +1,5 @@
 - include: common.yml
+- include: kernel.yml
+- include: docker.yml
 - include: sys.yml
 - include: web.yml

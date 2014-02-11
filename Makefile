@@ -9,6 +9,12 @@ provision:
 common:
 	ansible-playbook --ask-sudo-pass -v -i production common.yml
 
+kernel:
+	ansible-playbook --ask-sudo-pass -v -i production kernel.yml
+
+docker:
+	ansible-playbook --ask-sudo-pass -v -i production docker.yml
+
 sys:
 	ansible-playbook --ask-sudo-pass -v -i production sys.yml
 
