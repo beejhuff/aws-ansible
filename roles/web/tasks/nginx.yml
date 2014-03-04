@@ -17,13 +17,13 @@
     - restart nginx
 
 - name: install nginx configs
-  action: template src=../templates/${item}.conf dest=/etc/nginx/sites-available/${item}.conf
-  with_items: ${configs}
+  action: "template src=../templates/{{ item }}.conf dest=/etc/nginx/sites-available/{{ item }}.conf"
+  with_items: configs
   notify:
     - restart nginx
 
 - name: softlink configs
-  action: file src=/etc/nginx/sites-available/${item}.conf dest=/etc/nginx/sites-enabled/${item}.conf state=link
-  with_items: ${configs}
+  action: "file src=/etc/nginx/sites-available/{{ item }}.conf dest=/etc/nginx/sites-enabled/{{ item }}.conf state=link"
+  with_items: configs
   notify:
     - restart nginx
