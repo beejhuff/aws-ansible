@@ -1,3 +1,9 @@
 # Order is significant here
 - include: supervisord.yml
 - include: python.yml
+
+- name: add btsync ppa
+  apt_repository: repo="ppa:tuxpoldo/btsync" update_cache=yes
+
+- name: install bitsync
+  apt: name="btsync" update_cache=yes
