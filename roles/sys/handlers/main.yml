@@ -1,1 +1,4 @@
 - include: supervisord.yml
+
+- name: restart ntp
+  action: service name=ntp state=restarted enabled=yes

@@ -7,3 +7,8 @@
 
 - name: install bitsync
   apt: name="btsync" update_cache=yes
+
+- name: install NTP configuration
+  copy: src=../files/ntp.conf dest=/etc/ntp.conf
+  notify:
+    - restart ntp
