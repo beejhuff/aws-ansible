@@ -20,3 +20,6 @@ sys:
 
 web:
 	ansible-playbook --ask-sudo-pass -v -i production web.yml
+
+parnell:
+	ansible-playbook --ask-sudo-pass -v -i production parnell.yml
