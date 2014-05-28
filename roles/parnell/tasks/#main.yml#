@@ -1,0 +1,8 @@
+- name: copy assets
+  copy: src=../files/assets dest=/opt/share/
+
+- name: install site file
+  template: src=../templates/landing.j2 dest=/opt/share/parnell/index.html
+
+- name: install about file
+  template: src=../templates/landing.j2 dest=/opt/share/parnell/about/index.html
