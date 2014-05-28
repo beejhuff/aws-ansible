@@ -1,14 +1,11 @@
 - name: copy html
-  copy: src=../files/parnell.io/index.html dest=/opt/share/parnell
+  copy: src=../files/parnell.io/index.html dest=/opt/share/parnell/
 
 - name: copy js
-  copy: src=../files/parnell.io/js dest=/opt/share/parnell
-
-- name: copy fonts
-  copy: src=../files/parnell.io/fonts dest=/opt/share/parnell
+  copy: src=../files/parnell.io/js dest=/opt/share/parnell/
 
 - name: copy images
-  copy: src=../files/parnell.io/images dest=/opt/share/parnell
+  copy: src=../files/parnell.io/images dest=/opt/share/parnell/
 
 - name: copy css
-  copy: src=../files/parnell.io/css dest=/opt/share/parnell
+  copy: src=../files/parnell.io/css dest=/opt/share/parnell/
