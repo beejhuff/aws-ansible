@@ -2,5 +2,6 @@ server: 0.0.0.0:80
 
 configs:
   - parnell
+  - digitalmentat
   - ixmatus
   - maverickcto
