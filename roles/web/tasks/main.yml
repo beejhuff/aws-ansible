@@ -1,1 +1,7 @@
 - include: nginx.yml
+
+- name: Install supervisord configuration
+  sudo: true
+  template: src=../templates/web_supervisord.j2 dest=/etc/supervisord.d/web.conf
+  notify:
+    - restart supervisord

@@ -1,0 +1,54 @@
+[program:uwsgi-api]
+process_name=%(program_name)s
+numprocs=1
+command=/usr/local/bin/uwsgi -M -H /usr/local/plum -s :8080 --disable-logging --protocol=http -p 4 --threads 2 -w plumcloud.plum_api:application
+user=root
+autostart=true
+autorestart=true
+startretries=5
+stopsignal=KILL
+stderr_logfile=/var/log/uwsgi/%(program_name)s.log
+
+[program:uwsgi-firmware]
+process_name=%(program_name)s
+numprocs=1
+command=/usr/local/bin/uwsgi -M -H /usr/local/plum -s :7640 --disable-logging --protocol=http -p 4 --threads 2 -w plumcloud.FWUpdateServer:application
+user=root
+autostart=true
+autorestart=true
+startretries=5
+stopsignal=KILL
+stderr_logfile=/var/log/uwsgi/%(program_name)s.log
+
+[program:uwsgi-factory]
+process_name=%(program_name)s
+numprocs=1
+command=/usr/local/bin/uwsgi -M -H /usr/local/plum -s :7940 --disable-logging --protocol=http -p 4 --threads 2 -w plumcloud.plum_factory:application
+user=root
+autostart=true
+autorestart=true
+startretries=5
+stopsignal=KILL
+stderr_logfile=/var/log/uwsgi/%(program_name)s.log
+
+[program:plum-fw-monitor]
+process_name=%(program_name)s
+numprocs=1
+command={{ app_dir }}/bin/python -m plumcloud.FWUpdateFileMonitor
+user=root
+autostart=true
+autorestart=true
+startretries=5
+startsecs=3
+stderr_logfile=/var/log/uwsgi/%(program_name)s.log
+
+[program:plum-router]
+process_name=%(program_name)s
+numprocs=1
+command={{ app_dir }}/bin/python -m plumcloud.RouterController
+user=root
+autostart=true
+autorestart=true
+startretries=5
+startsecs=3
+stderr_logfile=/var/log/uwsgi/%(program_name)s.log
